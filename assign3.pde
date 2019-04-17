@@ -7,8 +7,17 @@ final int START_BUTTON_H = 60;
 final int START_BUTTON_X = 248;
 final int START_BUTTON_Y = 360;
 
+int soilWidth[]=new int[8];
+int soilHeight[]=new int[24];
+
+int lifeX;
+int lifeY=10;
+
 PImage title, gameover, startNormal, startHovered, restartNormal, restartHovered;
-PImage bg, soil8x24;
+PImage bg, soil8x24,life;
+PImage stone1,stone2;
+PImage soilImage[]=new PImage[6];
+
 
 // For debug function; DO NOT edit or remove this!
 int playerHealth = 0;
@@ -26,6 +35,17 @@ void setup() {
 	restartNormal = loadImage("img/restartNormal.png");
 	restartHovered = loadImage("img/restartHovered.png");
 	soil8x24 = loadImage("img/soil8x24.png");
+  soilImage[0]=loadImage("img/soil0.png");
+  soilImage[1]=loadImage("img/soil1.png");
+  soilImage[2]=loadImage("img/soil2.png");
+  soilImage[3]=loadImage("img/soil3.png");
+  soilImage[4]=loadImage("img/soil4.png");
+  soilImage[5]=loadImage("img/soil5.png");
+  life=loadImage("img/life.png");
+  stone1=loadImage("img/stone1.png");
+  stone2=loadImage("img/stone2.png");
+  
+
 }
 
 void draw() {
@@ -82,12 +102,65 @@ void draw() {
 		rect(0, 160 - GRASS_HEIGHT, width, GRASS_HEIGHT);
 
 		// Soil - REPLACE THIS PART WITH YOUR LOOP CODE!
-		image(soil8x24, 0, 160);
+		for(int i=0 ; i<soilWidth.length ; i++){
+      for(int a=0 ; a<soilHeight.length ; a++){
+        if(a>3 && a<8){
+          image(soilImage[1],i*80,(a+2)*80);
+        }else if(a>7 && a<12){
+          image(soilImage[2],i*80,(a+2)*80);
+        }else if(a>11 && a<16){
+          image(soilImage[3],i*80,(a+2)*80);
+        }else if(a>15 && a<20){
+          image(soilImage[4],i*80,(a+2)*80);
+        }else if(a>19 && a<24){
+          image(soilImage[5],i*80,(a+2)*80);
+        }else{image(soilImage[0],i*80,(a+2)*80);}
+      }
+    }
+    
 
+    //stone
+    //level1
+    for(int i=0 ; i<8 ; i++){
+      image(stone1,i*80,(i+2)*80);
+    }
+    //level2
+    for(int i=-1 ; i<8 ; i+=4){
+      for(int a=0 ; a<7 ; a+=4){
+        for(int b=0 ; b<2 ; b++){
+          image(stone1,(i+b)*80,(a+11)*80);
+          image(stone1,(i+b)*80,(a+12)*80);
+        }
+      } 
+    }
+    for(int i=1 ; i<7 ; i+=4){
+      for(int a=0 ; a<8 ; a+=4){
+        for(int b=0 ; b<2 ; b++){
+          image(stone1,(i+b)*80,(a+10)*80);
+          image(stone1,(i+b)*80,(a+13)*80);
+        }
+      } 
+    }
+    //level3
+    for(int i=0 ; i<8 ; i++){
+      for(int a=0 ; a<2 ; a++){
+        for(int b=-6 ; b<7 ; b+=3){
+          image(stone1,(i+a+b)*80,height-(i-19)*80);
+        }
+      }
+    }
+    for(int i=0 ; i<8 ; i++){
+      for(int b=-5 ; b<8 ; b+=3){
+        image(stone2,(i+b)*80,height-(i-19)*80);
+      }
+    }
 		// Player
 
 		// Health UI
-
+    
+    for(int i=0 ; i<playerHealth ; i++ ){ 
+      image(life,i*70+10,lifeY);
+    }
 		break;
 
 		case GAME_OVER: // Gameover Screen
