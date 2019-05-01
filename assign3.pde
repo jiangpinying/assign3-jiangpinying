@@ -20,7 +20,7 @@ PImage soilImage[]=new PImage[6];
 
 
 // For debug function; DO NOT edit or remove this!
-int playerHealth = 0;
+int playerHealth = 2;
 float cameraOffsetY = 0;
 boolean debugMode = false;
 
